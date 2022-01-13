@@ -5,28 +5,34 @@ import {
   InMemoryCache,
   useQuery,
 } from "@apollo/client";
-import { GetUsersNameDocument } from "~/graphql/dist/generated-client";
+import { GetUsersDocument } from "~/graphql/dist/generated-client";
+import Link from "next/link";
 
 const client = new ApolloClient({
-  uri: "http://localhost:3000/api/graphql",
+  uri: "/api/graphql",
   cache: new InMemoryCache(),
 });
 
 const Users: React.VoidFunctionComponent = () => {
-  const { loading, error, data } = useQuery(GetUsersNameDocument);
+  const { loading, error, data } = useQuery(GetUsersDocument);
 
   if (loading) {
     return <>Loading...</>;
   }
 
   if (error || !data) {
-    return <>Error</>;
+    console.error(error);
+    return <>{error?.message}</>;
   }
 
   return (
     <ul>
       {data.users.map((user) => (
-        <li key={user.id}>{user.name}</li>
+        <li key={user.id}>
+          <Link href={`/users/${user.id}`}>
+            <a>{user.name}</a>
+          </Link>
+        </li>
       ))}
     </ul>
   );

@@ -1,5 +1,12 @@
-query getUsersName {
+query getUsers {
   users {
+    id
+    name
+  }
+}
+
+query getUserById($id: ID!) {
+  user(id: $id) {
     id
     name
   }

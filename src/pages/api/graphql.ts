@@ -15,13 +15,18 @@ const users: User[] = [
 const resolvers: Resolvers = {
   Query: {
     users: () => users,
+    user: (_, { id }) => {
+      const user = users.find((user) => user.id === id);
+      return user || null;
+    },
   },
 };
 
 const apolloServer = new ApolloServer({ resolvers, typeDefs });
+const startServer = apolloServer.start();
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  await apolloServer.start();
+  await startServer;
   await apolloServer.createHandler({
     path: "/api/graphql",
   })(req, res);

@@ -1,6 +1,6 @@
 schema: "./src/graphql/schema.graphql"
 generates:
-  ./graphql/dist/generated-server.ts:
+  ./src/graphql/dist/generated-server.ts:
     config:
       useIndexSignature: true
     plugins:
