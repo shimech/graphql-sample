@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"npm run graphql-codegen-client -- --watch\" \"npm run graphql-codegen-server -- --watch\" \"next dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "graphql-codegen": "graphql-codegen"
+    "graphql-codegen-client": "graphql-codegen --config ./src/graphql/codegen-client.yml",
+    "graphql-codegen-server": "graphql-codegen --config ./src/graphql/codegen-server.yml"
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
@@ -26,6 +27,7 @@
     "@graphql-codegen/typescript-resolvers": "^2.6.1",
     "@types/node": "17.0.21",
     "@types/react": "17.0.41",
+    "concurrently": "^7.0.0",
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
     "typescript": "4.6.2"

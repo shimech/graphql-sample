@@ -25,8 +25,8 @@ const Users: React.VoidFunctionComponent = () => {
 
   return (
     <ul>
-      {data.users.map((user, i) => (
-        <li key={i}>{user.name}</li>
+      {data.users.map((user) => (
+        <li key={user.id}>{user.name}</li>
       ))}
     </ul>
   );
