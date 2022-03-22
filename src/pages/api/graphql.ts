@@ -20,6 +20,18 @@ const resolvers: Resolvers = {
       return user || null;
     },
   },
+  Mutation: {
+    createUser: (_, { name }) => {
+      const user = users.find((user) => user.name === name);
+      if (user) {
+        return null;
+      }
+      const id = (users.length + 1).toString();
+      const newUser: User = { id, name };
+      users.push(newUser);
+      return newUser;
+    },
+  },
 };
 
 const apolloServer = new ApolloServer({ resolvers, typeDefs });
